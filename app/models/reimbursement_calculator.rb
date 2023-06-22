@@ -2,7 +2,8 @@ class ReimbursementCalculator
     def self.execute(reimbursement)
         reimbursement_hash = reimbursement.attributes
         cleaned_up_reimbursement = clean_up_reimbursement(reimbursement_hash)
-        formatted_reimbursment = format_reimbursement(cleaned_up_reimbursement)
+        formatted_reimbursement = format_reimbursement(cleaned_up_reimbursement)
+        binding.pry
     end
 
     private
@@ -26,6 +27,19 @@ class ReimbursementCalculator
         return reimbursement_hash
     end
 
+    def self.create_project_date_range(project_hash)
+        cost_city = project_hash.values.first
+
+        # We need to remove the cost_city hash becasue it is not needed.
+        project_hash.delete(project_hash.keys.first)
+
+        start_date = project_hash.values.first
+        end_date = project_hash.values.last
+        date_range = (start_date..end_date).to_a
+
+        { "cost_city" => cost_city, "dates" => date_range }
+    end
+
     def self.format_reimbursement(cleaned_up_reimbursement)
         project_set_hash = {}
         i = 1
@@ -41,7 +55,8 @@ class ReimbursementCalculator
                     project_hash[key] = value
                 end
             end
-            project_set_hash[i] = project_hash
+
+            project_set_hash[i] = create_project_date_range(project_hash)
 
             i += 1
         end
