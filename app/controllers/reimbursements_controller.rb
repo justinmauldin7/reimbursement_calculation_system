@@ -12,6 +12,10 @@ class ReimbursementsController < ApplicationController
         end
     end
 
+    def show
+        @reimbursement = Reimbursement.find_by_id(params[:id])
+    end
+
     private
 
     def reimbursement_params
