@@ -4,12 +4,9 @@ class ReimbursementsController < ApplicationController
 
     def create
         @reimbursement = Reimbursement.new(reimbursement_params)
+        @reimbursement.save
 
-        if @reimbursement.save
-            redirect_to @reimbursement
-        else
-            render "new"
-        end
+        redirect_to @reimbursement
     end
 
     def show
