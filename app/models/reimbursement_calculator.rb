@@ -1,12 +1,12 @@
 class ReimbursementCalculator
     def self.execute(reimbursement)
         reimbursement_hash = reimbursement.attributes
-        formatted_reimbursement = format_reimbursement(reimbursement_hash)
+        formatted_reimbursement = clean_up_reimbursement(reimbursement_hash)
     end
 
     private
 
-    def self.format_reimbursement(reimbursement_hash)
+    def self.clean_up_reimbursement(reimbursement_hash)
         # Remove the fields we do not care about
         reimbursement_hash.delete('id')
         reimbursement_hash.delete('created_at')
