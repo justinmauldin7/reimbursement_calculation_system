@@ -1,0 +1,58 @@
+<h1> Welcome to the Reimbursement Calculation System! </h1>
+
+<h4> Enter in the city cost type, start date, & end date for each of the projects in your set you want to calculate the reimbursement for. </h4>
+<h4> Once you are finished entering in the details for all of your projects, click "Calcuate" and the system will calculate the correct reimbersement total for you. </h4>
+
+
+<%= form_with model: @reimbursement, url: reimbursements_path(), method: :post do |form| %>
+    <div class="project-container">
+        <h2> Project 1 </h2>
+        <%= form.label :cost_city_1, "City Cost Type:" %>
+        <%= form.collection_select :cost_city_1, cost_cities(), :to_s, :to_s, :include_blank => true %>
+
+        <%= form.label :start_date_1, "Project Start Date:" %>
+        <%= form.date_select :start_date_1, :include_blank => true %>
+
+        <%= form.label :end_date_1, "Project End Date:" %>
+        <%= form.date_select :end_date_1, :include_blank => true %>
+    </div>
+
+    <div class="project-container">
+        <h2> Project 2 </h2>
+        <%= form.label :cost_city_2, "City Cost Type:" %>
+        <%= form.collection_select :cost_city_2, cost_cities(), :to_s, :to_s, :include_blank => true %>
+
+        <%= form.label :start_date_2, "Project Start Date:" %>
+        <%= form.date_select :start_date_2, :include_blank => true %>
+
+        <%= form.label :end_date_2, "Project End Date:" %>
+        <%= form.date_select :end_date_2, :include_blank => true %>
+    </div>
+
+    <div class="project-container">
+        <h2> Project 3 </h2>
+        <%= form.label :cost_city_3, "City Cost Type:" %>
+        <%= form.collection_select :cost_city_3, cost_cities(), :to_s, :to_s, :include_blank => true %>
+
+        <%= form.label :start_date_3, "Project Start Date:" %>
+        <%= form.date_select :start_date_3, :include_blank => true %>
+
+        <%= form.label :end_date_3, "Project End Date:" %>
+        <%= form.date_select :end_date_3, :include_blank => true %>
+    </div>
+
+    <div class="project-container">
+        <h2> Project 4 </h2>
+        <%= form.label :cost_city_4, "City Cost Type:" %>
+        <%= form.collection_select :cost_city_4, cost_cities(), :to_s, :to_s, :include_blank => true %>
+
+        <%= form.label :start_date_4, "Project Start Date:" %>
+        <%= form.date_select :start_date_4, :include_blank => true %>
+
+        <%= form.label :end_date_4, "Project End Date:" %>
+        <%= form.date_select :end_date_4, :include_blank => true %>
+    </div>
+
+    <%= form.submit "Calculate" %> 
+<% end %>
+
