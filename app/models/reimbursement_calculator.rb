@@ -3,6 +3,7 @@ class ReimbursementCalculator
         reimbursement_hash = reimbursement.attributes
         cleaned_up_reimbursement = clean_up_reimbursement(reimbursement_hash)
         formatted_reimbursement = format_reimbursement(cleaned_up_reimbursement)
+        non_duplicate_reimbursement = remove_reimbursement_duplicate_dates(formatted_reimbursement)
     end
 
     private
@@ -67,5 +68,19 @@ class ReimbursementCalculator
         end
 
         return project_set_array.flatten.uniq #calling .uniq here so we can preemptively remove the exact duplicates.
+    end
+
+    def self.remove_reimbursement_duplicate_dates(formatted_reimbursement)
+        formatted_reimbursement.inject({}) do |new_hash, date_hash|
+            key = date_hash.keys.first
+
+            if !new_hash[key]
+                new_hash[key] = date_hash[key]
+            elsif new_hash[key] == 'low'
+                new_hash[key] = date_hash[key]
+            end
+            
+            new_hash
+        end
     end
 end
