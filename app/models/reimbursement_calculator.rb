@@ -4,6 +4,7 @@ class ReimbursementCalculator
         cleaned_up_reimbursement = clean_up_reimbursement(reimbursement_hash)
         formatted_reimbursement = format_reimbursement(cleaned_up_reimbursement)
         non_duplicate_reimbursement = remove_reimbursement_duplicate_dates(formatted_reimbursement)
+        sorted_reimbursement = non_duplicate_reimbursement.sort.to_h
     end
 
     private
