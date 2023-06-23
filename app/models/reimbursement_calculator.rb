@@ -2,9 +2,13 @@ class ReimbursementCalculator
     def self.execute(reimbursement)
         reimbursement_hash = reimbursement.attributes
         cleaned_up_reimbursement = clean_up_reimbursement(reimbursement_hash)
+        # OPTIMIZE This is where I should reach for other POROs instead of messing with an array of hashes.
         formatted_reimbursement = format_reimbursement(cleaned_up_reimbursement)
         non_duplicate_reimbursement = remove_reimbursement_duplicate_dates(formatted_reimbursement)
         sorted_reimbursement = non_duplicate_reimbursement.sort.to_h
+       # TODO Figure out if there are gaps in the dates & then assign the dates as "full" or "travel" days.
+       # TODO Assign the $ values for each day type & cost city type.
+       # TODO Do the actual math that calculates the total.
     end
 
     private
