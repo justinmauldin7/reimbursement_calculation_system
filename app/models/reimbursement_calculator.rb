@@ -3,7 +3,6 @@ class ReimbursementCalculator
         reimbursement_hash = reimbursement.attributes
         cleaned_up_reimbursement = clean_up_reimbursement(reimbursement_hash)
         formatted_reimbursement = format_reimbursement(cleaned_up_reimbursement)
-        binding.pry
     end
 
     private
@@ -37,11 +36,17 @@ class ReimbursementCalculator
         end_date = project_hash.values.last
         date_range = (start_date..end_date).to_a
 
-        { "cost_city" => cost_city, "dates" => date_range }
+        project_set_array = []
+
+        date_range.each do |date|
+            project_set_array << { date => cost_city }
+        end
+
+        return project_set_array
     end
 
     def self.format_reimbursement(cleaned_up_reimbursement)
-        project_set_hash = {}
+        project_set_array = []
         i = 1
         # We divide by 3 here to calculate the "iteration_number" because that is 
         # how many key value pairs relate to each project.
@@ -56,11 +61,11 @@ class ReimbursementCalculator
                 end
             end
 
-            project_set_hash[i] = create_project_date_range(project_hash)
+            project_set_array << create_project_date_range(project_hash)
 
             i += 1
         end
 
-        return project_set_hash
+        return project_set_array.flatten.uniq #calling .uniq here so we can preemptively remove the exact duplicates.
     end
 end
